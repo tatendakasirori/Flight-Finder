@@ -9,13 +9,40 @@ class DataManager:
         'Authorization': auth,
         "Content-Type": "application/json"
         }
-
-    # gets a list of all cities in the sheet
-    def get_cities(self):
+        self.data = self.get_data()
+    # returns all the data in the google sheet
+    def get_data(self) -> dict: 
         response = requests.get(url=self.url,headers=self.headers)
-        prices = response.json()['prices']
+        prices = response.json()
+        return prices
+    
+    # gets a list of all cities in the sheet
+    def get_cities(self) -> list: 
+        '''Returns a list of all the cities in the google sheet'''
+        prices = self.get_data()
         city_list = [i['city'] for i in prices]
         return city_list
+    
+    #writes iata codes in google sheet
+    def write_iata(self,iata_dict):
+        '''Takes a list of iata_code and "PUTs" the iata_code in the google sheet.
+        Returns if this was succesful and an error code if not'''
+        print('Logging iata codes......')
+        for row_id in range(len(iata_dict) +1): # loop over the row ids 
+            url = self.url + f'/{row_id}' #make the row url to 'PUT' the change
+            body ={
+                "prices":{
+                    "iataCode": iata_dict[row_id -1]
+                }
+            }
+            response = requests.put(url=url,json=body,headers=self.headers)
+            if response.status_code != 200:
+                return response.json()
+        self.data = self.get_data() # get updated data
+        return "Succefuly entered iata codes!!!"
+    
+
+        
 
 
 
