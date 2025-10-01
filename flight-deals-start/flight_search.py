@@ -9,8 +9,7 @@ class FlightSearch:
     def __init__(self,amad_api,amad_api_secret):
         self.api = amad_api
         self.api_secret = amad_api_secret
-        self.secret = amad_api_secret
-    
+        self.secret = amad_api_secret    
 
     def get_token(self) -> str:
         '''Returns your latest amadeus token'''
@@ -24,10 +23,21 @@ class FlightSearch:
         }
         response = requests.post(url=url,data=data, headers=headers)
         token = response.json()['access_token']
-        self.token = token
+        return token
 
     # return a dict of city:iataCode
     def get_iatas(self,city_lst) -> dict:
         '''Takes a list of cities and returns a dict of city:iataCode'''
+        self.token = self.get_token()
         for city in city_lst:
-            
+            url = 'https://api.amadeus.com/v1/reference-data/locations/cities'
+            parameters = {
+                "keyword":city,
+                "max": 1
+            }
+            headers = {
+                "Authorization": f'Bearer {self.token}',
+                "Accept": "application/vnd.amadeus+json"
+            }
+            response = requests.get(url=url,params=parameters, headers=headers)
+            print(response.json())

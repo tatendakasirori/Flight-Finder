@@ -5,15 +5,12 @@ import os
 from data_manager import DataManager
 from flight_search import FlightSearch
 
-# load_dotenv()
+load_dotenv()
 
-# sheety_data = DataManager(url=os.getenv("SH_URL"),auth=os.getenv("SH_AUTH"))
+sheety_data = DataManager(url=os.getenv("SH_URL"),auth=os.getenv("SH_AUTH"))
 
-# list = sheety_data.get_cities()
+list = sheety_data.get_cities()
 
-# print(list)
-
-# flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
-# response = flights.get_token()
-# print(response)
-print(4)
+flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
+response = flights.get_iatas(list)
+print(response)
