@@ -24,22 +24,23 @@ class DataManager:
         return city_list
     
     #writes iata codes in google sheet
-    def write_iata(self,iata_dict):
+    def write_iata(self,iata_list):
         '''Takes a list of iata_code and "PUTs" the iata_code in the google sheet.
-        Returns if this was succesful and an error code if not'''
+        Prints out if this was succesful and an error code if not'''
         print('Logging iata codes......')
-        for row_id in range(len(iata_dict) +1): # loop over the row ids 
-            url = self.url + f'/{row_id}' #make the row url to 'PUT' the change
+        for row_id in range(len(iata_list)): # loop over the row ids 
+            url = self.url + f'/{row_id + 2}' #make the row url to 'PUT' the iatacode
             body ={
-                "prices":{
-                    "iataCode": iata_dict[row_id -1]
+                "price":{
+                    "iataCode": iata_list[row_id]
                 }
             }
             response = requests.put(url=url,json=body,headers=self.headers)
             if response.status_code != 200:
-                return response.json()
-        self.data = self.get_data() # get updated data
-        return "Succefuly entered iata codes!!!"
+                print(response.json())
+                return
+        self.data = self.get_data() # updated data
+        print("Succefuly entered iata codes!!!")
     
 
         

@@ -23,14 +23,16 @@ class FlightSearch:
         }
         response = requests.post(url=url,data=data, headers=headers)
         token = response.json()['access_token']
+        self.token = token
         return token
 
     # return a dict of city:iataCode
     def get_iatas(self,city_lst) -> dict:
-        '''Takes a list of cities and returns a dict of city:iataCode'''
+        '''Takes a list of cities and returns a list of iataCodes'''
+        result = []
         self.token = self.get_token()
         for city in city_lst:
-            url = 'https://api.amadeus.com/v1/reference-data/locations/cities'
+            url = 'https://test.api.amadeus.com/v1/reference-data/locations/cities'
             parameters = {
                 "keyword":city,
                 "max": 1
@@ -40,4 +42,8 @@ class FlightSearch:
                 "Accept": "application/vnd.amadeus+json"
             }
             response = requests.get(url=url,params=parameters, headers=headers)
-            print(response.json())
+            if response.status_code == 200:
+                result.append(response.json()['data'][0]['iataCode'])
+            else:
+                return response.json()
+        return result
