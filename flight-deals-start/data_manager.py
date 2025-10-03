@@ -2,7 +2,7 @@ import requests
 
 class DataManager:
     #This class is responsible for talking to the Google Sheet.
-    def __init__(self,url,auth):
+    def __init__(self,url:str,auth:str):
         self.url = url
         self.auth = auth
         self.headers = sh_headers={
@@ -25,7 +25,7 @@ class DataManager:
         return city_list
     
     #writes iata codes in google sheet
-    def write_iata(self,iata_list):
+    def write_iata(self,iata_list:list):
         '''Takes a list of iata_code and "PUTs" the iata_code in the google sheet.
         Prints out if this was succesful and an error code if not'''
         print('Logging iata codes......')

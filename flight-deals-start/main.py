@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from data_manager import DataManager
 from flight_search import FlightSearch
+from datetime import datetime
 
 load_dotenv()
 '''U should make main in such a way that i only puts the iatacodes once and thats it'''
@@ -22,5 +23,9 @@ load_dotenv()
 
 # #enter the iatacodes into the google sheets
 # sheety_data.write_iata(iatacodes)
-sheety_test = DataManager(url=os.getenv("SH_URL"),auth=os.getenv("SH_AUTH"))
+
+flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
+today = datetime.now().strftime('%Y-%m-%d')
+flights.get_lower_prices()
+
 
