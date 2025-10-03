@@ -10,7 +10,12 @@ class FlightSearch:
     def __init__(self,amad_api,amad_api_secret):
         self.api = amad_api
         self.api_secret = amad_api_secret
-        self.secret = amad_api_secret    
+        self.secret = amad_api_secret
+        self.token = self.get_token()
+        self.headers = {
+                "Authorization": f'Bearer {self.token}',
+                "Accept": "application/vnd.amadeus+json"
+            }
 
     def get_token(self) -> str:
         '''Returns your latest amadeus token'''
@@ -31,25 +36,20 @@ class FlightSearch:
     def get_iatas(self,city_lst) -> dict:
         '''Takes a list of cities and returns a list of iataCodes'''
         result = []
-        self.token = self.get_token()
         for city in city_lst:
             url = 'https://test.api.amadeus.com/v1/reference-data/locations/cities'
             parameters = {
                 "keyword":city,
                 "max": 1
             }
-            headers = {
-                "Authorization": f'Bearer {self.token}',
-                "Accept": "application/vnd.amadeus+json"
-            }
-            response = requests.get(url=url,params=parameters, headers=headers)
+            response = requests.get(url=url,params=parameters, headers=self.headers)
             if response.status_code == 200:
                 result.append(response.json()['data'][0]['iataCode'])
             else:
                 return response.json()
         return result
     
-    def get_lower_prices(self):
+    def get_lower_prices(self,iata_code):
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
         body={
         "currencyCode": "USD",
