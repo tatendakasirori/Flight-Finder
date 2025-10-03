@@ -26,6 +26,6 @@ load_dotenv()
 
 flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
 today = datetime.now().strftime('%Y-%m-%d')
-flights.get_lower_prices()
+flights.get_lower_prices(date=today,iata_code='FRA')
 
 

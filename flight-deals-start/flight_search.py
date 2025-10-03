@@ -51,25 +51,40 @@ class FlightSearch:
     
     def get_lower_prices(self,iata_code:str,date:str):
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
-        body={
-            "currencyCode": "GBP",
-            "originDestinations": [
-                {
-                "id": "1",
-                "originLocationCode": "LON",
-                "destinationLocationCode": iata_code,
-                "departureDateTimeRange": {
-                    "date": date
+        body=body={ 
+            "currencyCode": "USD", 
+            "originDestinations": [ 
+                { 
+                    "id": "1", 
+                    "originLocationCode": 'LON', 
+                    "destinationLocationCode": iata_code, 
+                    "departureDateTimeRange": { 
+                        "date": "2023-11-01", 
+                        "time": "10:00:00" 
+                        } 
+                } 
+                ], 
+            "travelers": [ 
+                { "id": "1", 
+                 "travelerType": "ADULT" 
+                } 
+                ], 
+                "sources": [ "GDS" ],
+                "searchCriteria": { 
+                    "maxFlightOffers": 2,
+                    "flightFilters": { 
+                        "cabinRestrictions": [ 
+                            { 
+                                "cabin": "BUSINESS", 
+                                "coverage": "MOST_SEGMENTS", 
+                                "originDestinationIds": [ 
+                                    "1" 
+                                    ]
+                                } 
+                            ] 
+                        } 
+                    } 
                 }
-                }
-            ],
-            "travelers": [
-                {
-                "id": "1",
-                "travelerType": "ADULT"
-                }
-            ]
-        }
 
 
         response = requests.post(url=url,json=body,headers=self.headers)
