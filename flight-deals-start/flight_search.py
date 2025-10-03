@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+import datetime
 
 load_dotenv()
 
@@ -47,3 +48,49 @@ class FlightSearch:
             else:
                 return response.json()
         return result
+    
+    def get_lower_prices(self):
+        url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
+        body={
+        "currencyCode": "USD",
+        "originDestinations": [
+            {
+            "id": "1",
+            "originLocationCode": 'LON',
+            "destinationLocationCode": iata_code,
+            "departureDateTimeRange": {
+                "date": "2023-11-01",
+                "time": "10:00:00"
+            }
+            }
+        ],
+        "travelers": [
+            {
+            "id": "1",
+            "travelerType": "ADULT"
+            }
+        ],
+        "sources": [
+            "GDS"
+        ],
+        "searchCriteria": {
+            "maxFlightOffers": 2,
+            "flightFilters": {
+            "cabinRestrictions": [
+                {
+                "cabin": "BUSINESS",
+                "coverage": "MOST_SEGMENTS",
+                "originDestinationIds": [
+                    "1"
+                ]
+                }
+            ]
+            }
+        }
+        }
+
+        response = requests.get()
+
+
+
+

@@ -10,6 +10,7 @@ class DataManager:
         "Content-Type": "application/json"
         }
         self.data = self.get_data()
+
     # returns all the data in the google sheet
     def get_data(self) -> dict: 
         response = requests.get(url=self.url,headers=self.headers)
@@ -19,8 +20,8 @@ class DataManager:
     # gets a list of all cities in the sheet
     def get_cities(self) -> list: 
         '''Returns a list of all the cities in the google sheet'''
-        res_dict = self.get_data()
-        city_list = [i['city'] for i in res_dict['prices']]
+        res_dict = self.get_data()['prices']
+        city_list = [i['city'] for i in res_dict]
         return city_list
     
     #writes iata codes in google sheet
