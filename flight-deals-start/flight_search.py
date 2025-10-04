@@ -52,6 +52,8 @@ class FlightSearch:
     def get_lower_prices(self,iata_code:str):
         tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
+
+        #make it do +- 3 days first
         body={ 
             "currencyCode": "USD", 
             "originDestinations": [ 
@@ -60,7 +62,8 @@ class FlightSearch:
                     "originLocationCode": 'LON', 
                     "destinationLocationCode": iata_code, 
                     "departureDateTimeRange": { 
-                        "date": tomorrow
+                        "date": tomorrow,
+                        "dateWindow": "P30D"
                         } 
                 } 
                 ], 
