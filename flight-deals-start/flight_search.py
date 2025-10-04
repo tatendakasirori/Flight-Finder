@@ -52,6 +52,7 @@ class FlightSearch:
     def get_lower_prices(self,iata_code:str):
         tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
+        flight_jsons = [] # a list to store all flights in time range
 
         #looping over a range of 10 dates
         for i in range(10):
@@ -92,8 +93,9 @@ class FlightSearch:
 
 
             response = requests.post(url=url,json=body,headers=self.headers)
-            print(self.headers)
-            print(response.json())
+            flight_jsons.append(response)
+        return flight_jsons
+            
 
 
 
