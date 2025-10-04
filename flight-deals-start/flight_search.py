@@ -1,7 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
-import datetime
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -49,9 +49,11 @@ class FlightSearch:
                 return response.json()
         return result
     
-    def get_lower_prices(self,iata_code:str,date:str):
+    def get_lower_prices(self,iata_code:str):
+        tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+        six_months = (datetime.today() + timedelta(days=6)).strftime('%Y-%m-%d')
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
-        body=body={ 
+        body={ 
             "currencyCode": "USD", 
             "originDestinations": [ 
                 { 
@@ -59,8 +61,8 @@ class FlightSearch:
                     "originLocationCode": 'LON', 
                     "destinationLocationCode": iata_code, 
                     "departureDateTimeRange": { 
-                        "date": "2023-11-01", 
-                        "time": "10:00:00" 
+                        "dateRangeStart": tomorrow, 
+                        "dateRangeEnd": six_months 
                         } 
                 } 
                 ], 
