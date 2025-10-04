@@ -25,5 +25,5 @@ load_dotenv()
 # sheety_data.write_iata(iatacodes)
 
 flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
-flights.get_lower_prices(iata_code='FRA')
+flights.get_lower_prices(iata_code='ATL')
 
