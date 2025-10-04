@@ -50,18 +50,44 @@ class FlightSearch:
         return result
     
     def get_lower_prices(self,iata_code:str):
-        tomorrow = (datetime.today() + timedelta(days=13)).strftime('%Y-%m-%d')
-        six_days = (datetime.today() + timedelta(days=6)).strftime('%Y-%m-%d')
-        url = 'https://test.api.amadeus.com/v1/shopping/flight-dates'
-        parameters ={
-            'origin':'NYC',
-            'destination':iata_code,
-            'departureDate':f'{tomorrow}', #string (query) the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the ISO 8601 YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive
-            'maxPrice':1000000000000,
-        }
-        print(self.headers) #remove this later
-        # fix bellow later
-        response = requests.get(url=url,params=parameters,headers=self.headers)
+        tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+        url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
+        body={ 
+            "currencyCode": "USD", 
+            "originDestinations": [ 
+                {
+                    "id": "1", 
+                    "originLocationCode": 'LON', 
+                    "destinationLocationCode": iata_code, 
+                    "departureDateTimeRange": { 
+                        "date": tomorrow
+                        } 
+                } 
+                ], 
+            "travelers": [ 
+                { "id": "1", 
+                 "travelerType": "ADULT" 
+                } 
+                ], 
+                "sources": [ "GDS" ],
+                "searchCriteria": { 
+                    "maxFlightOffers": 2,
+                    "flightFilters": { 
+                        "cabinRestrictions": [ 
+                            { 
+                                "cabin": "BUSINESS", 
+                                "coverage": "MOST_SEGMENTS", 
+                                "originDestinationIds": [ 
+                                    "1" 
+                                    ]
+                                } 
+                            ] 
+                        } 
+                    } 
+                }
+
+
+        response = requests.post(url=url,json=body,headers=self.headers)
         print(response.json())
 
 
