@@ -50,48 +50,50 @@ class FlightSearch:
         return result
     
     def get_lower_prices(self,iata_code:str):
-        tomorrow = (datetime.today() + timedelta(days=1)).strftime('%Y-%m-%d')
+        tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
 
-        #make it do +- 3 days first
-        body={ 
-            "currencyCode": "USD", 
-            "originDestinations": [ 
-                {
-                    "id": "1", 
-                    "originLocationCode": 'LON', 
-                    "destinationLocationCode": iata_code, 
-                    "departureDateTimeRange": { 
-                        "date": tomorrow,
-                        "dateWindow": "P30D"
-                        } 
-                } 
-                ], 
-            "travelers": [ 
-                { "id": "1", 
-                 "travelerType": "ADULT" 
-                } 
-                ], 
-                "sources": [ "GDS" ],
-                "searchCriteria": { 
-                    "maxFlightOffers": 2,
-                    "flightFilters": { 
-                        "cabinRestrictions": [ 
-                            { 
-                                "cabin": "BUSINESS", 
-                                "coverage": "MOST_SEGMENTS", 
-                                "originDestinationIds": [ 
-                                    "1" 
-                                    ]
-                                } 
-                            ] 
-                        } 
+        #looping over a range of 10 dates
+        for i in range(10):
+            body={ 
+                "currencyCode": "USD", 
+                "originDestinations": [ 
+                    {
+                        "id": "1", 
+                        "originLocationCode": 'LON', 
+                        "destinationLocationCode": iata_code, 
+                        "departureDateTimeRange": { 
+                            "date": (tomorrow + timedelta(days=i)).strftime('%Y-%m-%d'),
+                            "dateWindow": "P3D"
+                            } 
                     } 
-                }
+                    ], 
+                "travelers": [ 
+                    { "id": "1", 
+                    "travelerType": "ADULT" 
+                    } 
+                    ], 
+                    "sources": [ "GDS" ],
+                    "searchCriteria": { 
+                        "maxFlightOffers": 2,
+                        "flightFilters": { 
+                            "cabinRestrictions": [ 
+                                { 
+                                    "cabin": "BUSINESS", 
+                                    "coverage": "MOST_SEGMENTS", 
+                                    "originDestinationIds": [ 
+                                        "1" 
+                                        ]
+                                    } 
+                                ] 
+                            } 
+                        } 
+                    }
 
 
-        response = requests.post(url=url,json=body,headers=self.headers)
-        print(response.json())
+            response = requests.post(url=url,json=body,headers=self.headers)
+            print(self.headers)
+            print(response.json())
 
 
 
