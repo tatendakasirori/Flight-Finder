@@ -5,6 +5,7 @@ import os
 from data_manager import DataManager
 from flight_search import FlightSearch
 from datetime import datetime,timedelta
+from flight_data import FlightData
 
 load_dotenv()
 '''U should make main in such a way that i only puts the iatacodes once and thats it'''
@@ -26,4 +27,5 @@ load_dotenv()
 
 # flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
 # flights.get_lower_prices(iata_code='ATL')
+flight_data = FlightData()
 
