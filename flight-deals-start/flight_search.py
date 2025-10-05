@@ -50,6 +50,7 @@ class FlightSearch:
         return result
     
     def get_lower_prices(self,iata_codes:list) ->dict:
+        '''Returns a dict with '''
         tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
         iataCode_flights = {} # a dict to store iata_code: flight_json items 

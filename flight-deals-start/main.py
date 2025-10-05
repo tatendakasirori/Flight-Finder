@@ -27,5 +27,3 @@ load_dotenv()
 # flights = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
 # flights.get_lower_prices(iata_code='ATL')
 
-sheety_data = DataManager(url=os.getenv("SH_URL"),auth=os.getenv("SH_AUTH"))
-print(sheety_data.get_data())

@@ -43,10 +43,13 @@ class DataManager:
         self.data = self.get_data() # updated data
         print("Succefuly entered iata codes!!!")
 
-    def make_iatacode_lowestprice_dict(self):
-        '''Takes the updated self.data and formates into the form iataCode:lowestprice and returns this dict'''
-        pass
-    
+    def make_citydata_dict(self,):
+        '''Uses the updated self.data and returns a dict of the form city: [iatacode,lowestPrice]'''
+
+        citydata_dict ={
+            i['city'] : [i['iataCode'],i['lowestPrice']] for i in self.data['prices']
+        }
+        return citydata_dict
 
         
 
