@@ -4,16 +4,16 @@ class FlightData:
     def __init__(self,citydata_dict:dict):
         self.citydata_dict = citydata_dict
 
-    def flight_filter(jsons_list:list):
+    def flight_filter(self,jsons_list:list):
         pass
 
-    def filter_by_price(jsons_list:list):
-        filtered_json_list = {}
-        for ()
-        for json_file in jsons_list:
-            for flight in json_file['data']: #loop over flights in data list
-                if flight['price']['base'] <= lowestprice:
-                    filtered_json_list.append(flight)
+    def filter_by_price(self,iataCode_flights:dict):
+        filtered_json_list = {} #<- account for each city 
+        for city,iata_price in self.citydata_dict:
+            for json_file in iataCode_flights[iata_price[0]]:
+                for flight in json_file['data']: #loop over flights in data list
+                    if flight['price']['base'] <= iata_price[1]:
+                        filtered_json_list.append(flight)
         return filtered_json_list
 
 
