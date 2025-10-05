@@ -49,52 +49,54 @@ class FlightSearch:
                 return response.json()
         return result
     
-    def get_lower_prices(self,iata_code:str):
+    def get_lower_prices(self,iata_codes:list) ->dict:
         tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
-        flight_jsons = [] # a list to store all flights in time range
+        iataCode_flights = {} # a dict to store iata_code: flight_json items 
 
-        #looping over a range of 10 dates
-        for i in range(10):
-            body={ 
-                "currencyCode": "USD", 
-                "originDestinations": [ 
-                    {
-                        "id": "1", 
-                        "originLocationCode": 'LON', 
-                        "destinationLocationCode": iata_code, 
-                        "departureDateTimeRange": { 
-                            "date": (tomorrow + timedelta(days=i)).strftime('%Y-%m-%d'),
-                            "dateWindow": "P3D"
-                            } 
-                    } 
-                    ], 
-                "travelers": [ 
-                    { "id": "1", 
-                    "travelerType": "ADULT" 
-                    } 
-                    ], 
-                    "sources": [ "GDS" ],
-                    "searchCriteria": { 
-                        "maxFlightOffers": 2,
-                        "flightFilters": { 
-                            "cabinRestrictions": [ 
-                                { 
-                                    "cabin": "BUSINESS", 
-                                    "coverage": "MOST_SEGMENTS", 
-                                    "originDestinationIds": [ 
-                                        "1" 
-                                        ]
-                                    } 
-                                ] 
-                            } 
+        for iata_code in iata_codes:
+            # a list of flights jsons for that iataCode
+            flight_jsons = []
+            for i in range(10): #loop over the range of dates for that iata_code
+                body={ 
+                    "currencyCode": "USD", 
+                    "originDestinations": [ 
+                        {
+                            "id": "1", 
+                            "originLocationCode": 'LON', 
+                            "destinationLocationCode": iata_code, 
+                            "departureDateTimeRange": { 
+                                "date": (tomorrow + timedelta(days=i)).strftime('%Y-%m-%d'),
+                                "dateWindow": "P3D"
+                                } 
                         } 
-                    }
+                        ], 
+                    "travelers": [ 
+                        { "id": "1", 
+                        "travelerType": "ADULT" 
+                        } 
+                        ], 
+                        "sources": [ "GDS" ],
+                        "searchCriteria": { 
+                            "maxFlightOffers": 2,
+                            "flightFilters": { 
+                                "cabinRestrictions": [ 
+                                    { 
+                                        "cabin": "BUSINESS", 
+                                        "coverage": "MOST_SEGMENTS", 
+                                        "originDestinationIds": [ 
+                                            "1" 
+                                            ]
+                                        } 
+                                    ] 
+                                } 
+                            } 
+                        }
 
-
-            response = requests.post(url=url,json=body,headers=self.headers)
-            flight_jsons.append(response)
-        return flight_jsons
+                response = requests.post(url=url,json=body,headers=self.headers)
+                flight_jsons.append(response)
+            iataCode_flights[iata_code] = flight_jsons
+        return iataCode_flights
             
 
 

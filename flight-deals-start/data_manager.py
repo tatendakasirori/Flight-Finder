@@ -42,6 +42,10 @@ class DataManager:
                 return
         self.data = self.get_data() # updated data
         print("Succefuly entered iata codes!!!")
+
+    def make_iatacode_lowestprice_dict(self):
+        '''Takes the updated self.data and formates into the form iataCode:lowestprice and returns this dict'''
+        pass
     
 
         
