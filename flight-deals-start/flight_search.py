@@ -60,7 +60,7 @@ class FlightSearch:
             flight_jsons = []
             for i in range(10): #loop over the range of dates for that iata_code
                 body={ 
-                    "currencyCode": "USD", 
+                    "currencyCode": "GBP", 
                     "originDestinations": [ 
                         {
                             "id": "1", 
