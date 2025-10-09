@@ -7,6 +7,7 @@ load_dotenv()
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
+    print('FlightSearch object initiated')
     def __init__(self,amad_api:str,amad_api_secret:str):
         self.api = amad_api
         self.api_secret = amad_api_secret
@@ -50,6 +51,7 @@ class FlightSearch:
         return result
     
     def get_flights(self,iata_codes:list) ->dict:
+        print('Loading flight data.........')
         '''Returns a dict with of iataCodes and their json flight responses from the flight-offers api'''
         tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
@@ -97,6 +99,7 @@ class FlightSearch:
                 response = requests.post(url=url,json=body,headers=self.headers)
                 flight_jsons.append(response)
             iataCode_flights[iata_code] = flight_jsons
+            print('flight data finalized!!!!')
         return iataCode_flights
             
 

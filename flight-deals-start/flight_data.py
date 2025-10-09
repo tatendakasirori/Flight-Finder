@@ -8,6 +8,7 @@ class FlightData:
         pass
 
     def filter_by_price(self,iataCode_flights:dict):
+        print('filtering by price')
         filtered_json_dict = {} # collect filtered iataCode_flights 
         for city,iata_price in self.citydata_dict.items():
             filtered_json_list = []
@@ -18,6 +19,7 @@ class FlightData:
                 else:
                     print('Too expensive')
             filtered_json_dict[city] = filtered_json_list
+        print('Flight data filtered!!!')
         return filtered_json_list
 
 
