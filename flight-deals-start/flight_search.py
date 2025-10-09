@@ -49,7 +49,7 @@ class FlightSearch:
                 return response.json()
         return result
     
-    def get_lower_prices(self,iata_codes:list) ->dict:
+    def get_flights(self,iata_codes:list) ->dict:
         '''Returns a dict with of iataCodes and their json flight responses from the flight-offers api'''
         tomorrow = datetime.today() + timedelta(days=1)
         url = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
