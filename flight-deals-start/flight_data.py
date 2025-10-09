@@ -1,6 +1,7 @@
 class FlightData:
     #This class is responsible for structuring the flight data.
     #Takes the iataCode_flights dict from flight_search and filters the flights accoding to price
+    print('Flightdata object initiated')
     def __init__(self,citydata_dict:dict):
         self.citydata_dict = citydata_dict
 

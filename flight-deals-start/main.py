@@ -44,7 +44,7 @@ flight_data = FlightData(citydata_dict=test_citydata_dict)
 
 flights_search = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os.getenv("AMAD_API_SECRET"))
 
-flights = flights_search.get_flights([value[0] for value in test_citydata_dict.values()])
+flights = flights_search.get_flights(['PAR', 'FRA', 'TYO', 'HKG', 'IST', 'KUL', 'NYC', 'SFO', 'DBN'])
 
 data = flight_data.filter_by_price(iataCode_flights=flights)
 
