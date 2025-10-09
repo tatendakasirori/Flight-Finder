@@ -97,9 +97,9 @@ class FlightSearch:
                         }
 
                 response = requests.post(url=url,json=body,headers=self.headers)
-                flight_jsons.append(response)
+                flight_jsons.append(response.json())
             iataCode_flights[iata_code] = flight_jsons
-            print(f'flight data finalized for flight {i+1}!!!!')
+            print(f'flight data finalized for flight to {iata_code}')
         print('All flight data collected')
         return iataCode_flights
             
