@@ -46,7 +46,6 @@ flights_search = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os
 
 flights = flights_search.get_flights(['PAR', 'FRA', 'TYO', 'HKG', 'IST', 'KUL', 'NYC', 'SFO', 'DBN'])
 
-print(flights)
 
 data = flight_data.filter_by_price(iataCode_flights=flights)
 

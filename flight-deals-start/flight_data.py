@@ -14,6 +14,7 @@ class FlightData:
         for city,iata_price in self.citydata_dict.items():
             filtered_json_list = []
             json_file = iataCode_flights.get(iata_price[0])
+            print(f'this is jsonfile: {json_file}')
             for flight in json_file['data']: #loop over flights in data list
                 if float(flight['price']['base']) <= iata_price[1]:
                     filtered_json_list.append(flight)
