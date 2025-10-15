@@ -49,7 +49,4 @@ flights = flights_search.get_flights(['PAR', 'FRA', 'TYO', 'HKG', 'IST', 'KUL', 
 
 data = flight_data.filter_by_price(iataCode_flights=flights)
 
-print(data)
-
-
 

@@ -6,7 +6,8 @@ load_dotenv()
 class NotificationManager:
     #This class is responsible for sending notifications with the deal flight details.
 
-    message_body = f"{STOCK}: {stock_change.percentage_change}\nHeadline: {article['title']}\nBrief: {article['description']}"
+    message_body = f"Low price alert! Only {price} to fly from {source} to {destination}\
+        , on {departure} until {arrival}"
     account_sid = os.environ["TWILIO_ACC_SID"]
     auth_token = os.environ["TWILIO_AUTH_TOKEN"]
     client = Client(account_sid, auth_token)

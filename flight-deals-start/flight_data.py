@@ -12,15 +12,15 @@ class FlightData:
         print('filtering by price')
         filtered_json_dict = {} # collect filtered iataCode_flights 
         for city,iata_price in self.citydata_dict.items():
-            filtered_json_list = []
-            json_file = iataCode_flights.get(iata_price[0])
-            print(f'this is jsonfile: {json_file}')
-            for flight in json_file['data']: #loop over flights in data list
-                if float(flight['price']['base']) <= iata_price[1]:
-                    filtered_json_list.append(flight)
-                else:
-                    print('Too expensive')
-            filtered_json_dict[city] = filtered_json_list
+            filtered_json_list = [] #stores filtered json_lists for each city
+            for json_file in iataCode_flights.get(iata_price[0],{}):
+                print(f'this is jsonfile: {json_file}')
+                for flight in json_file['data']: #loop over flights in data list
+                    if float(flight.get('price',{}).get('base',float('inf'))) <= iata_price[1]:
+                        filtered_json_list.append(flight) #adding each cheap flight 
+                    else:
+                        print('Too expensive')
+            filtered_json_dict[city] = filtered_json_list # making city: [flight_jsons] dict
         print('Flight data filtered!!!')
         return filtered_json_list
 
