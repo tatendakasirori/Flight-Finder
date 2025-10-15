@@ -14,9 +14,11 @@ class NotificationManager:
         }
         ]'''
         for flight in cheap_flights_lst:
+
             message_body = f"Low price alert! Only {flight.get('price')} to fly from\
                   {flight.get('source')} to {flight.get('destination')}\
-                    , on {flight.get('departure')} until {flight.get('arrival')}"
+                    , on {flight.get('departure')} until {flight.get('arrival')}" #make the message for each flight
+            
             account_sid = os.environ["TWILIO_ACC_SID"]
             auth_token = os.environ["TWILIO_AUTH_TOKEN"]
             client = Client(account_sid, auth_token)
