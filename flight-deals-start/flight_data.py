@@ -5,7 +5,8 @@ class FlightData:
         print('Flightdata object initiated')
         self.citydata_dict = citydata_dict
 
-    def flight_filter(self,jsons_list:list):
+    def flights_summary(self,iataCode_flights:dict):
+        print("Creats a concise summary of flights an")
         pass
 
     def filter_by_price(self,iataCode_flights:dict):
