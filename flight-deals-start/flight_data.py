@@ -13,6 +13,8 @@ class FlightData:
         filtered_json_dict = {} # collect filtered iataCode_flights 
         for city,iata_price in self.citydata_dict.items():
             filtered_json_list = [] #stores filtered json_lists for each city
+            with open(f"{city}.txt",'w') as file:
+                file.write(str(iataCode_flights.get(iata_price[0])))
             for json_file in iataCode_flights.get(iata_price[0],{}):
                 print(f'this is jsonfile: {json_file}')
                 for flight in json_file['data']: #loop over flights in data list
