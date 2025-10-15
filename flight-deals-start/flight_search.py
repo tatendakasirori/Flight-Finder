@@ -60,7 +60,7 @@ class FlightSearch:
         for iata_code in iata_codes:
             # a list of flights jsons for that iataCode
             flight_jsons = []
-            for i in range(10): #loop over the range of dates for that iata_code
+            for i in range(0,22,3): #loop over a range of 21 dates for that iata_code
                 body={ 
                     "currencyCode": "GBP", 
                     "originDestinations": [ 
