@@ -69,7 +69,7 @@ class FlightSearch:
                             "originLocationCode": 'LON', 
                             "destinationLocationCode": iata_code, 
                             "departureDateTimeRange": { 
-                                "date": (tomorrow + timedelta(days=i)).strftime('%Y-%m-%d'),
+                                "date": (tomorrow + timedelta(days=i+1)).strftime('%Y-%m-%d'),
                                 "dateWindow": "P3D"
                                 } 
                         } 
