@@ -6,6 +6,7 @@ from data_manager import DataManager
 from flight_search import FlightSearch
 from datetime import datetime,timedelta
 from flight_data import FlightData
+from notification_manager import NotificationManager
 
 load_dotenv()
 '''U should make main in such a way that i only puts the iatacodes once and thats it'''
@@ -29,14 +30,14 @@ load_dotenv()
 ''' Flight_search.get_flights(list of iatacodes) -> FlightData.filter_by_price(flights from Flight_search)'''
 
 test_citydata_dict = {
-    'Paris': ['PAR', 54], 
-    'Frankfurt': ['FRA', 42], 
-    'Tokyo': ['TYO', 485], 
+    'Paris': ['PAR', 90], 
+    'Frankfurt': ['FRA', 110], 
+    'Tokyo': ['TYO', 585], 
     'Hong Kong': ['HKG', 551], 
-    'Istanbul': ['IST', 95], 
-    'Kuala Lumpur': ['KUL', 414], 
-    'New York': ['NYC', 240], 
-    'San Francisco': ['SFO', 260], 
+    'Istanbul': ['IST', 130], 
+    'Kuala Lumpur': ['KUL', 614], 
+    'New York': ['NYC', 360], 
+    'San Francisco': ['SFO', 360], 
     'Dublin': ['DBN', 378]
     }
 
@@ -47,6 +48,9 @@ flights_search = FlightSearch(amad_api=os.getenv("AMAD_API"), amad_api_secret=os
 flights = flights_search.get_flights(['PAR', 'FRA', 'TYO', 'HKG', 'IST', 'KUL', 'NYC', 'SFO', 'DBN'])
 
 
-data = flight_data.filter_by_price(iataCode_flights=flights)
+data = flight_data.flights_summary(iataCode_flights=flights)
+print('Flight data summary: ' + str(data))
+
+notification = NotificationManager(data)
 
 

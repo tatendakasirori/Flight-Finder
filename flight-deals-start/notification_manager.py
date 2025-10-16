@@ -5,8 +5,11 @@ load_dotenv()
 
 class NotificationManager:
     #This class is responsible for sending notifications with the deal flight details.
+    def __init__(self,cheap_flights_lst:list):
+        self.cheap_flights_lst = cheap_flights_lst
+        self.send_notifications()
 
-    def send_notifications(cheap_flights_lst:list): # 
+    def send_notifications(self): # 
         '''cheap_flights_lst is of the form [{source:__,
         destination:___,
         departure:___,
@@ -14,7 +17,7 @@ class NotificationManager:
         price:___
         }
         ]'''
-        for flight in cheap_flights_lst:
+        for flight in self.cheap_flights_lst:
 
             message_body = f"Low price alert! Only {flight.get('price')} to fly from\
                   {flight.get('source')} to {flight.get('destination')}\

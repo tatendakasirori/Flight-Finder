@@ -15,7 +15,7 @@ class FlightData:
         }
         ] for notification_manager'''
         filtered_flights_list = self.filter_by_price(iataCode_flights)# filter first
-        print("Summarizing flights")
+        print("Summarizing flights........")
         flight_summary = []
         for flight_dict in filtered_flights_list:
             flight_description = {}
@@ -25,6 +25,7 @@ class FlightData:
             flight_description['arrival_time'] = flight_dict['itineraries'][0]['segments'][0]['arrival']['at'].split('T')[0]
             flight_description['price'] = flight_dict['price']['fees']['grandTotal']
             flight_summary.append(flight_description)
+        print('flights summary generated.........')
         return flight_summary
     
     def filter_by_price(self,iataCode_flights:dict):
