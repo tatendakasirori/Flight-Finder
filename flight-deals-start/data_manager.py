@@ -17,14 +17,25 @@ class DataManager:
         prices = response.json()
         return prices
     
+    def needs_iatacodes(self):
+        if self.data['prices'][0]['iataCode'] == '':
+            return True
+        return False
+    
     # gets a list of all cities in the sheet
     def get_cities(self) -> list: 
         '''Returns a list of all the cities in the google sheet'''
-        res_dict = self.get_data()['prices']
+        res_dict = self.data['prices']
         city_list = [i['city'] for i in res_dict]
         return city_list
     
-    #writes iata codes in google sheet
+    def get_iatacodes(self) -> list:
+        '''Similar to get_cities but returns a list of iatacodes'''
+        res_dict = self.data['prices']
+        city_list = [i['iataCode'] for i in res_dict]
+        return city_list
+    
+    #writes iata codes in google sheet and updata data 
     def write_iata(self,iata_list:list):
         '''Takes a list of iata_code and "PUTs" the iata_code in the google sheet.
         Prints out if this was succesful and an error code if not'''
@@ -43,7 +54,7 @@ class DataManager:
         self.data = self.get_data() # updated data
         print("Succefuly entered iata codes!!!")
 
-    def make_citydata_dict(self,):
+    def make_citydata_dict(self):
         '''Uses the updated self.data and returns a dict of the form city: [iatacode,lowestPrice]'''
 
         citydata_dict ={

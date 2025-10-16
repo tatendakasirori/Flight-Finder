@@ -23,13 +23,17 @@ class NotificationManager:
                   {flight.get('source')} to {flight.get('destination')}\
                     , on {flight.get('departure')} until {flight.get('arrival')}" #make the message for each flight
             
-            account_sid = os.environ["TWILIO_ACC_SID"]
-            auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-            client = Client(account_sid, auth_token)
+            api_key_sid = os.environ["TWILIO_KEY_SID"]
+            api_key_secret = os.environ['TWILIO_KEY_SECRET']
+            account_sid = os.environ['TWILIO_ACC_SID']   # Your Twilio account SID
+            client = Client(api_key_sid, api_key_secret, account_sid)
 
             message = client.messages.create(
-            from_= os.environ["WHATS_APP_FROM_NUM"],
+            from_= f'whatsapp:{os.environ["WHATS_APP_FROM_NUM"]}',
             body=message_body,
-            to=os.environ["WHATS_APP_TO_NUM"]
+            to=f'whatsapp:{os.environ["WHATS_APP_TO_NUM"]}'
             )
             print(message.status)
+
+
+
