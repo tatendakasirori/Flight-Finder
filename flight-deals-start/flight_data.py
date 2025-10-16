@@ -23,7 +23,7 @@ class FlightData:
             flight_description['destination'] = flight_dict['itineraries'][0]['segments'][-1]['arrival']['iataCode']
             flight_description['departure_time'] = flight_dict['itineraries'][0]['segments'][0]['departure']['at'].split('T')[0]
             flight_description['arrival_time'] = flight_dict['itineraries'][0]['segments'][0]['arrival']['at'].split('T')[0]
-            flight_description['price'] = flight_dict['price']['fees']['grandTotal']
+            flight_description['price'] = flight_dict['price']['grandTotal']
             flight_summary.append(flight_description)
         print('flights summary generated.........')
         return flight_summary
