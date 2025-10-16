@@ -7,7 +7,7 @@ class NotificationManager:
     #This class is responsible for sending notifications with the deal flight details.
 
     def send_notifications(cheap_flights_lst:list): # 
-        '''cheap_flights_lst is of the form [{soure:__,
+        '''cheap_flights_lst is of the form [{source:__,
         destination:___,
         departure:___,
         arrival:___
