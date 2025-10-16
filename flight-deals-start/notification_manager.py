@@ -10,18 +10,18 @@ class NotificationManager:
         self.send_notifications()
 
     def send_notifications(self): # 
-        '''cheap_flights_lst is of the form [{source:__,
+        '''cheap_flights_lst is of the form [{source:___,
         destination:___,
-        departure:___,
-        arrival:___,
+        departure_time:___,
+        arrival_time:___,
         price:___
         }
-        ]'''
+        ] '''
         for flight in self.cheap_flights_lst:
 
-            message_body = f"Low price alert! Only {flight.get('price')} to fly from\
+            message_body = f"Low price alert! Only £{flight.get('price')} to fly from\
                   {flight.get('source')} to {flight.get('destination')}\
-                    , on {flight.get('departure')} until {flight.get('arrival')}" #make the message for each flight
+                    , on {flight.get('departure_time')} until {flight.get('arrival_time')}" #make the message for each flight
             
             api_key_sid = os.environ["TWILIO_KEY_SID"]
             api_key_secret = os.environ['TWILIO_KEY_SECRET']
