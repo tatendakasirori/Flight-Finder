@@ -10,7 +10,8 @@ class NotificationManager:
         '''cheap_flights_lst is of the form [{source:__,
         destination:___,
         departure:___,
-        arrival:___
+        arrival:___,
+        price:___
         }
         ]'''
         for flight in cheap_flights_lst:
