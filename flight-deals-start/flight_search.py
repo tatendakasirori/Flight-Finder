@@ -1,9 +1,5 @@
 import requests
-import os
-from dotenv import load_dotenv
 from datetime import datetime, timedelta
-
-load_dotenv()
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
