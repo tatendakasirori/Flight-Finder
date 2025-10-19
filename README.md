@@ -63,8 +63,8 @@ workflow:
 
 1. Clone the repository
 
-    git clone https://github.com/tatendakasirori/Flight-Finder
-    cd flight-Finder
+    git clone https://github.com/tatendakasirori/UpInTheAir
+    cd UpInTheAir
 
 2. Create and activate a virtual environment
 
