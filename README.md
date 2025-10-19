@@ -1,4 +1,4 @@
-✈️ Flight Finder
+✈️ UpInTheAir
 
 A Python-based flight monitoring system that automates the search for
 cheap flight deals using the Amadeus API and sends real-time WhatsApp
